@@ -1,0 +1,32 @@
+.table-div {
+    display: flex; /* Utiliza el modelo de flexbox para el diseño de la tabla */
+    flex-direction: column; /* Coloca los elementos hijos en una columna */
+    border-collapse: collapse; /* Elimina los espacios entre los bordes de las celdas */
+    width: 100%; /* Hace que la tabla ocupe el 100% del ancho disponible */
+  }
+
+  .table-row {
+    display: flex; /* Utiliza el modelo de flexbox para el diseño de las filas */
+    width: 100%; /* Hace que cada fila ocupe el 100% del ancho disponible */
+    border: 1px solid #ddd; /* Agrega un borde de 1px color gris claro a cada fila */
+    flex-wrap: wrap; /* Permite que las celdas se envuelvan si es necesario */
+  }
+
+  .table-cell {
+    flex: 1; /* Hace que cada celda crezca uniformemente para llenar la fila */
+    padding: 8px; /* Agrega un relleno de 8px dentro de cada celda */
+    border: 1px solid #ddd; /* Agrega un borde de 1px color gris claro a cada celda */
+    min-width: 100px; /* Establece un ancho mínimo de 100px para cada celda */
+    word-wrap: break-word; /* Permite que las palabras largas se dividan y se envuelvan a la siguiente línea */
+  }
+
+  .table-header {
+    font-weight: bold; /* Hace que el texto en las celdas de encabezado sea negrita */
+    background-color: #f2f2f2; /* Establece un color de fondo gris claro para las celdas de encabezado */
+  }
+
+  @media (max-width: 768px) {
+    .table-cell {
+      flex: 1 1 100%; /* En pantallas pequeñas, hace que cada celda ocupe el 100% del ancho disponible */
+    }
+  }

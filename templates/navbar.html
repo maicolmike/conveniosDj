@@ -1,0 +1,47 @@
+<!-- Funcione la carpeta static -->
+{% load static %}
+<!-- poder activar los li -->
+{% url 'login' as login %}
+
+{% if user.is_authenticated %}  <!-- Inicio autenticado -->
+<!--<a class="navbar-brand" href="{% url 'index' %}"><img src="{% static 'img/logoCootep.png' %}" width="250" height="" alt="COOTEP LTDA" title="COOTEP LTDA"></a> -->
+<nav class="navbar navbar-expand-sm navbar-dark bg-success fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'index' %}">Inicio</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mynavbar">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'crear_requerimiento' %}">Crear requerimiento</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'listar_requerimientos' %}">Consultar requerimiento</a>
+        </li>
+        {% if user.is_superuser == 1 %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'register' %}">Crear usuario</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'usersList' %}">Listar usuario</a>
+        </li>
+        {% endif %}
+      </ul>
+      <span>  <!-- <span class="navbar-light">-->
+        <!-- <strong>{{ user.username }} </strong> ( {{ user.is_superuser }} ) -->
+        {% if user.is_superuser == 1 %}  
+        <h5 style="color:white">{{ user.username }} ( Administrador )</h5>
+        {% else %}
+        <h5 style="color:white">{{ user.username }} ( Cliente )</h5>
+        {% endif %}
+       </span>
+       <span class="navbar-nav">
+         <strong ><a class="nav-link" href="{% url 'CambiarClave' %}">Cambiar clave</a></strong>
+         <strong ><a class="nav-link" href="{% url 'logout' %}">Cerrar sesion</a></strong>
+       </span>
+    </div>
+  </div>
+</nav>
+
+{% endif %}  <!-- final autenticado -->

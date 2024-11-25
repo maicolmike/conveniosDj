@@ -1,0 +1,20 @@
+/* Estilos para los inputs de tipo texto, contraseña, email, checkbox y file dentro de la clase form-create */
+.form-create input[type="text"], input[type="password"], input[type="email"], input[type="checkbox"], input[type="file"] {
+  margin-bottom: 20px;  /* Espacio inferior entre el input y el siguiente elemento, como un botón */
+  font-size: 16px;      /* Tamaño de la letra dentro del input */
+  max-width: 330px;     /* Ancho máximo del input */
+}
+
+/* Estilos para los select dentro de la clase form-create */
+.form-create select {
+  margin-bottom: 20px;  /* Espacio inferior entre el select y el siguiente elemento */
+  font-size: 16px;      /* Tamaño de la letra dentro del select */
+  max-width: 330px;     /* Ancho máximo del select */
+}
+
+/* Estilos para los textarea dentro de la clase form-create */
+.form-create textarea {
+  margin-bottom: 20px;  /* Espacio inferior entre el textarea y el siguiente elemento */
+  font-size: 14px;      /* Tamaño de la letra dentro del textarea */
+  max-width: 430px;     /* Ancho máximo del textarea */
+}

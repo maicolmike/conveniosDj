@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ title }}</title>
+
+    <!-- favicon-->
+    <link rel="shortcut icon" href="{% static 'img/logocootep.png' %}">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="{% static 'lib/bootstrap-5.0.2-dist/css/bootstrap.min.css' %}">
+
+    <!-- jQuery (necesario para algunos componentes de Bootstrap) -->
+    <!--<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>-->  <!-- Aquí se incluye jQuery cdn -->
+    <script src="{% static 'lib/js/jquery-3.7.1.min.js' %}"></script> <!-- Aquí se incluye jQuery localmente -->
+
+    <!-- Bootstrap 5 JS y dependencias -->
+    <script src="{% static 'lib/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- fontawesome library -->
+    <script src="https://kit.fontawesome.com/8c8b2bc594.js" crossorigin="anonymous"></script>
+
+    <!-- Datatables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css" />
+    <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+
+    <!-- Codigo para volver los div en tablas-->
+    <link rel="stylesheet" href="{% static 'css/modalTabla.css' %}">
+
+
+</head>
+
+<body>
+
+    {% include 'navbar.html' %}
+
+    <br>
+    <br>
+    {% block sinNada %}
+    {% endblock %}
+
+    <div class="container">
+        
+        {% block breadcrumb %}
+        {% endblock %}
+        
+        <div class="">
+            <br>
+
+            {% block content %}
+            {% endblock %}
+
+        </div>
+
+    </div> 
+    
+    {% block javascript %}
+    <!-- Codigo para los mensajes con la libreria sweetalert-->
+     <script src="{% static 'lib/sweetalert2-9.10.0/sweetalert2.all.min.js' %}"></script>
+     <script src="{% static 'js/notificacionSwal.js' %}"></script>
+     <script src="{% static 'js/mensajeAlert.js' %}"></script>
+     <script src="{% static 'js/mensajeAlertTiquet.js' %}"></script>
+     
+    <!-- Codigo para libreria adminLte funcione el proceso de busqueda del datatable-->
+     <script src="{% static 'js/datatable.js' %}"></script>
+    
+     <!-- Codigo para hacer los botones itemes -->
+      <script src="{% static 'js/modalBotones.js' %}"></script>
+        
+    {% endblock %}
+    
+</body>
+</html>

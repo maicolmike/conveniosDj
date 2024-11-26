@@ -14,7 +14,7 @@
     <div class="collapse navbar-collapse" id="mynavbar">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link" href="">Consultar asociado</a>
+          <a class="nav-link" href="{% url 'consulta' %}">Consultar asociado</a>
         </li>
         {% if user.is_superuser == 1 %}
         <li class="nav-item">

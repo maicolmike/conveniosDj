@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path
 from . import views
 from users.views import login_view,logout_view,register,usersList,CambiarClave,UserUpdateView,UserUdpateClave,UserDelete,recuperar_clave
+from consulta.views import consulta
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -16,4 +17,5 @@ urlpatterns = [
     path('users/editarClave', UserUdpateClave, name='updateusuariosClave'),
     path('users/eliminarUsuarios', UserDelete, name='deleteusuarios'),
     path('users/recuperarClave', recuperar_clave, name='recuperar_clave'),
+    path('consulta/consulta', consulta, name='consulta'),
 ]

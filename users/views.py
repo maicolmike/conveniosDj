@@ -244,13 +244,14 @@ def recuperar_clave(request):
                 Thread(target=send_password_email, args=(user, new_password)).start()
 
                 # Muestra un mensaje de éxito al usuario.
-                messages.success(request, f'Se ha enviado un correo a {user.email} para recuperar su clave.')
+                messages.success(request, f'Se ha enviado un correo para recuperar su clave.')
                 
                 # Redirige al usuario a la página de inicio de sesión.
                 return redirect('login')
             except User.DoesNotExist:
                 # Si el usuario no existe, muestra un mensaje de error.
-                messages.error(request, 'Error: El usuario no existe.')
+                #messages.error(request, 'Error: El usuario no existe.')
+                messages.success(request, f'Se ha enviado un correo para recuperar su clave.')
         else:
             # Si el formulario no es válido, muestra un mensaje de error.
             messages.error(request, 'Formulario inválido.')

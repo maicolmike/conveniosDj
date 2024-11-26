@@ -176,3 +176,25 @@ def UserUdpateClave(request):
         #time.sleep(1.5) #funcion para que se demore en redireccionar
         messages.success(request, "Clave actualizada exitosamente.")
         return redirect('usersList')
+
+# esta funcion sirve para eliminar los usuarios que se obtienen de la vista listar usuarios
+# esta asociada a los siguiente template/users-listUsers.html mesa_ayuda/mesa_ayuda/urls.py  path('users/eliminarUsuarios', UserDelete, name='deleteusuarios'),
+@login_required(login_url='login')    
+def UserDelete(request):
+    if request.method == 'POST':
+        user_id = request.POST.get('id')
+        
+        # Busca el usuario en la base de datos por su ID
+        try:
+            user = User.objects.get(id=user_id)
+
+            # Elimina el usuario de la base de datos
+            user.delete()
+
+        except User.DoesNotExist:
+            resultado = "El usuario no existe."
+
+        # Redirecciona a la lista de usuarios después de eliminar
+        #time.sleep(1.5) #funcion para que se demore en redireccionar
+        messages.success(request, "Usuario eliminado exitosamente.")
+        return redirect('usersList')

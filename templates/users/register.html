@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% if user.is_superuser == 1 %} <!-- valido que el usuario que ingresa a esta ruta sea un administrador tipo= 1-->
+
+<link rel="stylesheet" href="{% static 'css/register.css' %}">
+
+<div class="col">
+  {% include 'messages.html' %}
+  <h2>Crear usuario</h2>
+  <!-- Formulario -->
+  <form class="form-create" method="post">
+      {% csrf_token %}
+    
+    <!-- Mostar el formulario de una manera mas rapida-->
+    {% for field in form %}
+    <div class="form-group">
+
+      {{ field.label_tag }}
+      {{ field }}
+    
+      {% if field.errors %}
+      {{ field.errors }}
+      {% endif %}
+
+    </div>
+  {% endfor %}
+  <button type="submit" class="btn btn-success">Guardar</button>
+  
+  </form>
+  
+</div>
+
+
+{% else %}  <!-- aqui pongo el final del condicional para saber si el que accede es un administrador-->
+
+{% include 'accesoRestringido.html' %}    <!--  Dentro de este archivo configuro el mensaje a mostar -->
+
+{% endif %}  <!-- aqui pongo el final del condicional para saber si el que accede es un administrador-->
+
+{% endblock %}

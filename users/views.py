@@ -6,6 +6,13 @@ from django.contrib import messages
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required # vista basada en funciones que no permita acceder a paginas donde no se ha logeado
 from django.contrib.auth import update_session_auth_hash
+import string
+import random
+from django.core.mail import send_mail
+from django.conf import settings
+from threading import Thread #trabajar en segundo plano
+from django.template.loader import render_to_string #Renderiza la plantilla HTML con los datos necesarios.
+from django.utils.html import strip_tags # Convierte el mensaje HTML a texto plano.
 
 
 # Create your views here.
@@ -123,6 +130,7 @@ def UserUpdateView(request):
         # Obtiene los datos del formulario
         user_id = request.POST.get('id')
         username = request.POST.get('username')
+        first_name = request.POST.get('first_name')
         email = request.POST.get('userEmail')
         tipousuario = request.POST.get('tipousuario')
         estado = request.POST.get('estado')
@@ -137,6 +145,7 @@ def UserUpdateView(request):
         
         # Actualiza los campos con los nuevos valores
         user.username = username
+        user.first_name = first_name
         user.email = email
         user.is_superuser = tipousuario
         user.is_active = estado
@@ -198,3 +207,11 @@ def UserDelete(request):
         #time.sleep(1.5) #funcion para que se demore en redireccionar
         messages.success(request, "Usuario eliminado exitosamente.")
         return redirect('usersList')
+
+# generar clave automatica   
+def generate_random_password():
+    # Define un conjunto de caracteres que incluye letras (mayúsculas y minúsculas), dígitos y algunos caracteres especiales.
+    characters = string.ascii_letters + string.digits + "*#$&!?"
+    
+    # Genera una contraseña aleatoria de 6 caracteres eligiendo aleatoriamente de los caracteres definidos.
+    return ''.join(random.SystemRandom().choice(characters) for _ in range(6))

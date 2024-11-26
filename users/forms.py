@@ -18,6 +18,10 @@ class RegistroUsuario(forms.Form):
                                widget=forms.TextInput(attrs={'class': 'form-control',
                                                              'id': 'username',
                                                              'placeholder': 'Username'}))
+    first_name = forms.CharField(required=True, min_length=4, max_length=50,label='nombre',
+                               widget=forms.TextInput(attrs={'class': 'form-control',
+                                                             'id': 'nombre',
+                                                             'placeholder': 'nombre'}))
     password = forms.CharField(required=True,
                                widget=forms.PasswordInput(attrs={'class': 'form-control',
                                                              'id': 'password',
@@ -48,10 +52,11 @@ class RegistroUsuario(forms.Form):
     #Guardar  
     def save(self):
         username = self.cleaned_data['username']
+        first_name = self.cleaned_data['first_name']
         password = self.cleaned_data['password']
         email = self.cleaned_data['email']
 
-        user = User.objects.create_user(username=username, email=email, password=password)
+        user = User.objects.create_user(username=username, first_name=first_name, email=email, password=password)
         
         return user
 

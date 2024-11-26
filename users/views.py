@@ -111,4 +111,68 @@ def CambiarClave(request):
 
     return render(request, 'users/cambiarClave.html', {'form': form, 'title': 'Cambiar clave'})
 
+# esta funcion sirve para editar los usuarios que se obtienen de la vista listar usuarios
+# esta asociada a los siguiente: template/users/listUsers.html     mesa_ayuda/mesa_ayuda/urls.py path('users/editar', UserUpdateView, name='updateusuarios'),
+# esta funcion esta sirviendo con modalEdtiar usuarios
+@login_required(login_url='login')
+def UserUpdateView(request):
+    """
+    Vista para actualizar la información de un usuario existente.
+    """
+    if request.method == 'POST':
+        # Obtiene los datos del formulario
+        user_id = request.POST.get('id')
+        username = request.POST.get('username')
+        email = request.POST.get('userEmail')
+        tipousuario = request.POST.get('tipousuario')
+        estado = request.POST.get('estado')
+        
+        # Busca el usuario en la base de datos por su ID
+        user = get_object_or_404(User, id=user_id)
 
+        # Verificar si el nuevo nombre de usuario ya existe y no es el del propio usuario
+        if User.objects.filter(username=username).exclude(id=user_id).exists():
+            messages.error(request, "Error: el nombre de usuario ya existe.")
+            return redirect('usersList')
+        
+        # Actualiza los campos con los nuevos valores
+        user.username = username
+        user.email = email
+        user.is_superuser = tipousuario
+        user.is_active = estado
+
+        # Guarda los cambios en la base de datos
+        user.save()
+        messages.success(request, "Usuario actualizado exitosamente.")
+        return redirect('usersList')
+
+    return redirect('usersList')
+
+# esta funcion sirve para actualizar la clave los usuarios que se obtienen de la vista listar usuarios
+# esta asociada a los siguiente template/users/listUsers.html  mesa_ayuda/mesa_ayuda/urls.py path('users/editarClave', UserUdpateClave, name='updateusuariosClave'),
+@login_required(login_url='login')    
+def UserUdpateClave(request):
+    
+    if request.method == 'POST':
+        user_id = request.POST.get('id')
+        new_password = request.POST.get('passnew')
+
+        try:
+            # Obtén el usuario de la base de datos
+            user = User.objects.get(id=user_id) #En contraste, si tuvieras un objeto User específico (por ejemplo, obtenido de una consulta a la base de datos), podrías hacer user.set_password(password_nueva) y user.save() para cambiar la contraseña de ese usuario en particular. Esto podría ser útil en situaciones donde estás trabajando con información específica de un usuario, independientemente de la sesión actual.
+
+            # Establece la nueva contraseña usando set_password()
+            user.set_password(new_password)
+
+            # Guarda el usuario, lo que encripta la nueva contraseña
+            user.save()
+            
+            # Actualizar la sesión del usuario para evitar cerrar sesión después de cambiar la contraseña
+            update_session_auth_hash(request, user)
+            
+        except User.DoesNotExist:
+            resultado = "El usuario no existe."
+            
+        #time.sleep(1.5) #funcion para que se demore en redireccionar
+        messages.success(request, "Clave actualizada exitosamente.")
+        return redirect('usersList')

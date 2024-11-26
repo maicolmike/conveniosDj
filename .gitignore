@@ -1,0 +1,48 @@
+# Ignorar entorno virtual
+venv/
+env/
+*.pyc
+__pycache__/
+
+# Ignorar archivos de configuración y base de datos local
+*.sqlite3
+*.py[co]
+*.pyo
+*.pyd
+
+# Ignorar configuraciones del IDE
+.vscode/
+.idea/
+
+# Ignorar archivos de log
+*.log
+
+# Ignorar archivos de migración de Django
+#*/migrations/*
+
+# Ignorar archivos estáticos generados
+#staticfiles/
+#static/
+
+# Ignorar archivos de medios subidos
+#media/
+
+# Ignorar configuraciones del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Ignorar archivos de cobertura de pruebas
+coverage/
+*.cover
+
+# Ignorar dependencias instaladas en el directorio del proyecto
+node_modules/
+
+# Ignorar archivos de configuración específicos del sistema operativo
+*.swp
+*.swo
+
+# que no me tome lo de settings py
+#settings.py
+
+.env

@@ -21,7 +21,7 @@
           <a class="nav-link" href="{% url 'register' %}">Crear usuario</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="">Listar usuario</a>
+          <a class="nav-link" href="{% url 'usersList' %}">Listar usuario</a>
         </li>
         {% endif %}
       </ul>
@@ -34,7 +34,7 @@
         {% endif %}
        </span>
        <span class="navbar-nav">
-         <strong ><a class="nav-link" href="">Cambiar clave</a></strong>
+         <strong ><a class="nav-link" href="{% url 'CambiarClave' %}">Cambiar clave</a></strong>
          <strong ><a class="nav-link" href="{% url 'logout' %}">Cerrar sesion</a></strong>
        </span>
     </div>

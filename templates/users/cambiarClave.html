@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/register.css' %}">
+
+<div class="col">
+  {% include 'messages.html' %}
+  <h2>Cambiar contraseña</h2>
+  <!-- Formulario -->
+  <form class="form-create" method="post">
+      {% csrf_token %}
+    
+    <!-- Mostar el formulario de una manera mas rapida-->
+    {% for field in form %}
+    <div class="form-group">
+
+      {{ field.label_tag }}
+      {{ field }}
+    
+      {% if field.errors %}
+      {{ field.errors }}
+      {% endif %}
+
+    </div>
+  {% endfor %}
+  <button type="submit" class="btn btn-success" style="background-color:rgb(4,105,4);">Guardar</button>
+  
+  </form>
+  
+</div>
+
+{% endblock %}

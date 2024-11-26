@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+    <div class="card shadow table-responsive">
+        <div class="card-body table-responsive">
+          {% include 'messages.html' %}
+            <h4 style="text-align: center;"><b>Listado de usuarios</b></h4>
+            <table id="example1" class="table table-bordered table-hover">
+                <thead class="table-secondary">
+                    <tr>
+                        <th class="sorting sorting_asc">Id</th>
+                        <th>Usuario</th>
+                        <th>Email</th>
+                        <th style="width: 140px;">Tipo usuario</th>
+                        <th style="width: 140px;">Estado usuario</th>
+                        <th>Editar</th>
+                        <th>Clave</th>
+                        <th>Borrar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for usuarios in lista_usuarios %}
+                    <tr>
+                        <td>{{ usuarios.id }}</td>
+                        <td>{{ usuarios.username }}</td>
+                        <td>{{ usuarios.email }}</td>
+                        {% if usuarios.is_superuser == 1 %}
+                          <td>Administrador</td>
+                        {% else %}
+                          <td>Cliente</td>
+                        {% endif %}
+                        {% if usuarios.is_active == 1 %}
+                          <td>Activo</td>
+                        {% else %}
+                          <td>Inactivo</td>
+                        {% endif %}
+                        <td style="text-align: center;">
+                          <a href="#" class="btn btn-info fa-solid fa-pen-to-square" data-bs-toggle="modal" data-bs-target="#modalEditar{{ usuarios.id }}"></a>
+                        </td>
+                        <td style="text-align: center;">
+                          <a href="#" class="btn btn-success fa-solid fa-calendar-check" data-bs-toggle="modal" data-bs-target="#modalClave{{ usuarios.id }}"></a>
+                        </td>
+                        <td style="text-align: center;">
+                          <a href="#" class="btn btn-danger fa-solid fa-trash-can" data-bs-toggle="modal" data-bs-target="#modalEliminar{{ usuarios.id }}"></a>
+                        </td>
+                    </tr>
+                   
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

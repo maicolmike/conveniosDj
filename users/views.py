@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from .models import User
-from .forms import LoginUser,RegistroUsuario
+from .forms import LoginUser,RegistroUsuario,CambiarClaveForm
 from django.contrib.auth import login,logout,authenticate
 from django.contrib import messages
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required # vista basada en funciones que no permita acceder a paginas donde no se ha logeado
+from django.contrib.auth import update_session_auth_hash
 
 
 # Create your views here.
@@ -64,4 +65,50 @@ def register(request):
         'form': form,
         'title': "Registro",
         })
+
+#Listar usuarios
+@login_required(login_url='login')
+def usersList(request):
+    #return HttpResponse('Hola mundo')
+    lista_usuarios = User.objects.all()
+    return render(request, 'users/listUsers.html',{ 
+        'title': "Listado Usuarios",
+        'lista_usuarios': lista_usuarios,
+    })
+
+@login_required(login_url='login')    
+def CambiarClave(request):
+    
+    form = CambiarClaveForm(request.POST or None)
+    if request.method == 'POST' and form.is_valid():
+        password_actual = form.cleaned_data['passwordActual']
+        password_nueva = form.cleaned_data['passwordNew']
+        confirmar_password = form.cleaned_data['passwordNewConfirm']
+
+        # Validar que la contraseña actual sea correcta
+        if not request.user.check_password(password_actual):
+            messages.error(request, 'La contraseña actual es incorrecta.')
+            return render(request, 'users/cambiarClave.html', {'form': form, 'title': 'Cambiar clave'})
+        
+        # Validar que la contraseña actual sea diferente de la nueva
+        if password_actual == password_nueva:
+            messages.error(request, 'La nueva contraseña debe ser diferente de la contraseña actual.')
+            return render(request, 'users/cambiarClave.html', {'form': form, 'title': 'Cambiar clave'})
+        
+        # Validar que la nueva contraseña y la confirmación coincidan
+        if password_nueva != confirmar_password:
+            messages.error(request, 'La nueva contraseña y confirmacion de contraseña no coinciden.')
+            return render(request, 'users/cambiarClave.html', {'form': form, 'title': 'Cambiar clave'})
+
+        # Cambiar la contraseña del usuario
+        request.user.set_password(password_nueva)   #request.user es específico para interactuar con el usuario que ha iniciado sesión en ese momento, 
+        request.user.save()
+
+        # Actualizar la sesión del usuario para evitar cerrar sesión después de cambiar la contraseña
+        update_session_auth_hash(request, request.user)
+
+        messages.success(request, 'Contraseña cambiada exitosamente.')
+
+    return render(request, 'users/cambiarClave.html', {'form': form, 'title': 'Cambiar clave'})
+
 

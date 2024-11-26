@@ -1,0 +1,190 @@
+<!-- Inicio Modal Editar -->
+<div class="modal fade" id="modalEditar{{ usuarios.id }}" tabindex="-1" aria-labelledby="modalEditarLabel{{ usuarios.id }}" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <!-- Inicio Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalEditarLabel{{ usuarios.id }}">Editar Usuario</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <!-- Final Modal Header -->
+
+      <!-- Inicio Modal Body -->
+      <div class="modal-body">
+        <!-- Formulario de Edición -->
+        <form action="{% url 'updateusuarios' %}" method="post">
+          {% csrf_token %}
+          
+          <!-- Campo oculto para ID -->
+          <input type="hidden" name="id" value="{{ usuarios.id }}">
+
+          <!-- Campo Identificación -->
+          <div class="form-inline col-sm-12 mt-3">
+            <label class="control-label col-sm-4" for="identificacion"><h5>Identificación</h5></label>
+            <input minlength="4" type="text" class="form-control col-sm-7" id="identificacion" name="identificacion" value="{{ usuarios.identificacion }}">
+            <div class="invalid-feedback" id="usernameError"></div>
+          </div>
+
+          <!-- Campo Nombres -->
+          <div class="form-inline col-sm-12 mt-3">
+            <label class="control-label col-sm-4" for="nombres"><h5>Nombres</h5></label>
+            <input minlength="4" type="text" class="form-control col-sm-7" id="nombres" name="nombres" value="{{ usuarios.nombres }}">
+            <div class="invalid-feedback" id="usernameError"></div>
+          </div>
+
+          <!-- Campo Nombre de Usuario -->
+          <div class="form-inline col-sm-12 mt-3">
+            <label class="control-label col-sm-4" for="username"><h5>Usuario</h5></label>
+            <input minlength="4" type="text" class="form-control col-sm-7" id="username" name="username" value="{{ usuarios.username }}">
+            <div class="invalid-feedback" id="usernameError"></div>
+          </div>
+
+          <!-- Campo Email -->
+          <div class="form-inline col-sm-12 mt-3">
+            <label class="control-label col-sm-4" for="userEmail"><h5>Email</h5></label>
+            <input id="userEmail" minlength="6" type="email" class="form-control col-sm-7" name="userEmail" value="{{ usuarios.email }}" required>
+          </div>
+
+          <!-- Campo Agencia -->
+          <div class="form-inline col-sm-12 mt-3">
+            <label class="control-label col-sm-4" for="agencia"><h5>Agencia</h5></label>
+            <select name="agencia" id="agencia" class="form-control col-sm-7">
+              <!-- Opciones serán generadas por JavaScript -->
+              {% if usuarios.agencia == 'MOCOA' %}
+              <option value="MOCOA"selected>MOCOA</option>
+              <option value="PUERTO ASIS">PUERTO ASIS</option>
+              <option value="DORADA">DORADA</option>
+              <option value="HORMIGA">HORMIGA</option>
+              <option value="ORITO">ORITO</option>
+              <option value="VILLA GARZON">VILLA GARZON</option>
+              <option value="PUERTO LEGUIZAMO">PUERTO LEGUIZAMO</option>
+              <option value="SIBUNDOY">SIBUNDOY</option>
+              {% elif usuarios.agencia == 'PUERTO ASIS'%}
+              <option value="MOCOA">MOCOA</option>
+              <option value="PUERTO ASIS"selected>PUERTO ASIS</option>
+              <option value="DORADA">DORADA</option>
+              <option value="HORMIGA">HORMIGA</option>
+              <option value="ORITO">ORITO</option>
+              <option value="VILLA GARZON">VILLA GARZON</option>
+              <option value="PUERTO LEGUIZAMO">PUERTO LEGUIZAMO</option>
+              <option value="SIBUNDOY">SIBUNDOY</option>
+              {% elif usuarios.agencia == 'DORADA'%}
+              <option value="MOCOA">MOCOA</option>
+              <option value="PUERTO ASIS">PUERTO ASIS</option>
+              <option value="DORADA"selected>DORADA</option>
+              <option value="HORMIGA">HORMIGA</option>
+              <option value="ORITO">ORITO</option>
+              <option value="VILLA GARZON">VILLA GARZON</option>
+              <option value="PUERTO LEGUIZAMO">PUERTO LEGUIZAMO</option>
+              <option value="SIBUNDOY">SIBUNDOY</option>
+              {% elif usuarios.agencia == 'HORMIGA'%}
+              <option value="MOCOA">MOCOA</option>
+              <option value="PUERTO ASIS">PUERTO ASIS</option>
+              <option value="DORADA">DORADA</option>
+              <option value="HORMIGA"selected>HORMIGA</option>
+              <option value="ORITO">ORITO</option>
+              <option value="VILLA GARZON">VILLA GARZON</option>
+              <option value="PUERTO LEGUIZAMO">PUERTO LEGUIZAMO</option>
+              <option value="SIBUNDOY">SIBUNDOY</option>
+              {% elif usuarios.agencia == 'ORITO'%}
+              <option value="MOCOA">MOCOA</option>
+              <option value="PUERTO ASIS">PUERTO ASIS</option>
+              <option value="DORADA">DORADA</option>
+              <option value="HORMIGA">HORMIGA</option>
+              <option value="ORITO"selected>ORITO</option>
+              <option value="VILLA GARZON">VILLA GARZON</option>
+              <option value="PUERTO LEGUIZAMO">PUERTO LEGUIZAMO</option>
+              <option value="SIBUNDOY">SIBUNDOY</option>
+              {% elif usuarios.agencia == 'VILLA GARZON'%}
+              <option value="MOCOA">MOCOA</option>
+              <option value="PUERTO ASIS">PUERTO ASIS</option>
+              <option value="DORADA">DORADA</option>
+              <option value="HORMIGA">HORMIGA</option>
+              <option value="ORITO">ORITO</option>
+              <option value="VILLA GARZON"selected>VILLA GARZON</option>
+              <option value="PUERTO LEGUIZAMO">PUERTO LEGUIZAMO</option>
+              <option value="SIBUNDOY">SIBUNDOY</option>
+              {% elif usuarios.agencia == 'PUERTO LEGUIZAMO'%}
+              <option value="MOCOA">MOCOA</option>
+              <option value="PUERTO ASIS">PUERTO ASIS</option>
+              <option value="DORADA">DORADA</option>
+              <option value="HORMIGA">HORMIGA</option>
+              <option value="ORITO">ORITO</option>
+              <option value="VILLA GARZON">VILLA GARZON</option>
+              <option value="PUERTO LEGUIZAMO"selected>PUERTO LEGUIZAMO</option>
+              <option value="SIBUNDOY">SIBUNDOY</option>
+              {% elif usuarios.agencia == 'SIBUNDOY'%}
+              <option value="MOCOA">MOCOA</option>
+              <option value="PUERTO ASIS">PUERTO ASIS</option>
+              <option value="DORADA">DORADA</option>
+              <option value="HORMIGA">HORMIGA</option>
+              <option value="ORITO">ORITO</option>
+              <option value="VILLA GARZON">VILLA GARZON</option>
+              <option value="PUERTO LEGUIZAMO">PUERTO LEGUIZAMO</option>
+              <option value="SIBUNDOY"selected>SIBUNDOY</option>
+              {% endif %}
+            </select>
+          </div>
+
+          <!-- Campo Tipo de Usuario -->
+          <div class="form-inline col-sm-12 mt-3">
+            <label class="control-label col-sm-4" for="tipoUsuario"><h5>Tipo de Usuario</h5></label>
+            <select name="tipousuario" id="tipoUsuario" class="form-control col-sm-7">
+              <option value="1" {% if usuarios.is_superuser %}selected{% endif %}>Administrador</option>
+              <option value="0" {% if not usuarios.is_superuser %}selected{% endif %}>Cliente</option>
+            </select>
+          </div>
+
+          <!-- Campo estado usuario -->
+          <div class="form-inline col-sm-12 mt-3">
+            <label class="control-label col-sm-4" for="estado"><h5>Estado Usuario</h5></label>
+            <select name="estado" id="estado" class="form-control col-sm-7">
+                <option value="1" {% if usuarios.is_active %}selected{% endif %}>Activo</option>
+                <option value="0" {% if not usuarios.is_active %}selected{% endif %}>Inactivo</option>
+            </select>
+          </div>
+
+
+          <!-- Botones del Modal -->
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Guardar cambios</button> <!-- btnEditar para activar los alerts de js -->
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+          </div>
+        </form>
+        <!-- Final Formulario de Edición -->
+      </div>
+      <!-- Final Modal Body -->
+    </div>
+  </div>
+</div>
+<!-- Final Modal Editar -->
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      const agenciaSelect = document.getElementById("agencia");
+      const AGENCIA_CHOICES = [
+          { value: 'MOCOA', display: 'Mocoa' },
+          { value: 'PUERTO ASIS', display: 'Puerto Asis' },
+          { value: 'DORADA', display: 'Dorada' },
+          { value: 'HORMIGA', display: 'Hormiga' },
+          { value: 'ORITO', display: 'Orito' },
+          { value: 'VILLA GARZON', display: 'Villa Garzon' },
+          { value: 'PUERTO LEGUIZAMO', display: 'Puerto Leguizamo' },
+          { value: 'SIBUNDOY', display: 'Sibundoy' }
+      ];
+      const selectedAgencia = "{{ usuarios.agencia }}"; // Valor de la agencia seleccionada
+
+      console.log("Valor de agencia seleccionada: ", selectedAgencia); // Debugging
+
+      // Generar las opciones dinámicamente
+      AGENCIA_CHOICES.forEach(function(agencia) {
+          const option = document.createElement("option");
+          option.value = agencia.value;
+          option.textContent = agencia.display;
+          if (agencia.value === selectedAgencia) {
+              option.selected = true;
+          }
+          agenciaSelect.appendChild(option);
+      });
+  });
+</script>

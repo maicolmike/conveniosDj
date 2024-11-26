@@ -9,23 +9,21 @@
   <form class="form-signin" action="" method="post">
     {% csrf_token %}  <!--para que no genere error-->
     <img class="mb-4" src="{% static 'img/logoCootep.png' %}" alt="" width="300">
-    <h1 class="h3 mb-3 font-weight-normal">Login mesa de ayuda</h1>
-    {% for field in form %}
-        <div class="mb-3 mt-3">
+    <h1 class="h3 mb-3 font-weight-normal">Recuperar clave</h1>
     
-          {{ field.label_tag }}
-          {{ field }}
-        
-          {% if field.errors %}
-          {{ field.errors }}
-          {% endif %}
+    <div class="mb-3 mt-3">
     
-        </div>
-    {% endfor %}
-    <button type="submit" class="btn btn-lg btn-success" >Iniciar sesi&oacute;n</button>  <!-- style="background-color:rgb(4,105,4);" -->
+      {{ form.username.label_tag }}
+      {{ form.username }}
+      {% if field.errors %}
+      {{ field.errors }}
+      {% endif %}
+
+    </div>
+
+    <button type="submit" class="btn btn-lg btn-success" >Enviar al correo</button>  <!-- style="background-color:rgb(4,105,4);" -->
         <br><br>
-        <a class="" href="{% url 'recuperar_clave' %}">Recordar contraseña</a>
-        <br>
+        
         {% include 'messages.html' %}
 
         <footer>

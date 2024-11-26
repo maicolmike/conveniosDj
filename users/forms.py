@@ -76,3 +76,9 @@ class CambiarClaveForm(forms.Form):
                                widget=forms.PasswordInput(attrs={'class': 'form-control',
                                                              'id': 'passwordNewConfirm',
                                                              'placeholder': 'Confirmar contraseña'}))
+
+class LoginUserRecuperarClave(forms.Form):
+    username = forms.CharField(required=True, min_length=4, max_length=50,label='Usuario',
+                               widget=forms.TextInput(attrs={'class': 'form-control',
+                                                             'id': 'username',
+                                                             'placeholder': 'Usuario'}))

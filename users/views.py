@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import User
-from .forms import LoginUser,RegistroUsuario,CambiarClaveForm
+from .forms import LoginUser,RegistroUsuario,CambiarClaveForm,LoginUserRecuperarClave
 from django.contrib.auth import login,logout,authenticate
 from django.contrib import messages
 from django.shortcuts import render,redirect,get_object_or_404
@@ -215,3 +215,70 @@ def generate_random_password():
     
     # Genera una contraseña aleatoria de 6 caracteres eligiendo aleatoriamente de los caracteres definidos.
     return ''.join(random.SystemRandom().choice(characters) for _ in range(6))
+
+# recuperar clave  
+def recuperar_clave(request):
+    # Verifica si la solicitud es de tipo POST (es decir, si se ha enviado el formulario).
+    if request.method == 'POST':
+        # Crea una instancia del formulario con los datos enviados.
+        form = LoginUserRecuperarClave(request.POST)
+        
+        # Verifica si el formulario es válido.
+        if form.is_valid():
+            # Obtiene el nombre de usuario ingresado en el formulario.
+            username = form.cleaned_data['username']
+            try:
+                # Intenta obtener al usuario de la base de datos por su nombre de usuario.
+                user = User.objects.get(username=username)
+                
+                # Genera una nueva contraseña aleatoria.
+                new_password = generate_random_password()
+                
+                # Establece la nueva contraseña para el usuario.
+                user.set_password(new_password)
+                
+                # Guarda los cambios en la base de datos.
+                user.save()
+
+                # Envía la nueva contraseña al correo electrónico del usuario utilizando un hilo separado para no bloquear la ejecución.
+                Thread(target=send_password_email, args=(user, new_password)).start()
+
+                # Muestra un mensaje de éxito al usuario.
+                messages.success(request, f'Se ha enviado un correo a {user.email} para recuperar su clave.')
+                
+                # Redirige al usuario a la página de inicio de sesión.
+                return redirect('login')
+            except User.DoesNotExist:
+                # Si el usuario no existe, muestra un mensaje de error.
+                messages.error(request, 'Error: El usuario no existe.')
+        else:
+            # Si el formulario no es válido, muestra un mensaje de error.
+            messages.error(request, 'Formulario inválido.')
+    else:
+        # Si la solicitud no es de tipo POST, simplemente crea un formulario vacío.
+        form = LoginUserRecuperarClave()
+
+    # Renderiza la plantilla recuperarClave.html con el formulario.
+    return render(request, 'users/recuperarClave.html', {
+        'title': "Recuperar clave",
+        'form': form,
+    })
+
+def send_password_email(user, new_password):
+    # Asunto del correo electrónico.
+    subject = 'Recuperación de Contraseña'
+    
+    # Renderiza la plantilla HTML con los datos necesarios.
+    html_message = render_to_string('emails/restablecerclave.html', {'username': user.username, 'nombres': user.first_name,'new_password': new_password})
+    
+    # Convierte el mensaje HTML a texto plano.
+    plain_message = strip_tags(html_message)
+    
+    # Dirección de correo electrónico del remitente personalizada.
+    from_email = "servicio de notificación <{}>".format(settings.DEFAULT_FROM_EMAIL)
+    
+    # Lista de destinatarios.
+    recipient_list = [user.email]
+    
+    # Envía el correo electrónico con el asunto, mensaje en texto plano, mensaje HTML, remitente y lista de destinatarios.
+    send_mail(subject, plain_message, from_email, recipient_list, html_message=html_message)

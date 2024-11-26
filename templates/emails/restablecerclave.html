@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperación de Contraseña</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif; /* Define la fuente principal del correo */
+            line-height: 1.6; /* Establece la altura de línea para mejorar la legibilidad */
+            color: #333; /* Color de texto principal */
+            background-color: #f9f9f9; /* Color de fondo para el cuerpo del correo */
+            margin: 0; /* Elimina los márgenes en el cuerpo */
+            padding: 0; /* Elimina el relleno en el cuerpo */
+        }
+        .container {
+            background-color: #ffffff; /* Fondo blanco para la caja principal del contenido */
+            padding: 20px; /* Espacio interno dentro de la caja principal */
+            border-radius: 5px; /* Bordes ligeramente redondeados */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Sombra suave para darle profundidad */
+            max-width: 600px; /* Ancho máximo de la caja principal */
+            margin: auto; /* Centra la caja en la página */
+            overflow: hidden; /* Asegura que el contenido largo no se reduzca ni se salga de la caja */
+        }
+        .header {
+            text-align: center; /* Centra el texto del encabezado */
+            padding-bottom: 20px; /* Espacio debajo del encabezado */
+        }
+        .header h1 {
+            color: #4CAF50; /* Color del texto del encabezado */
+        }
+        .content {
+            font-size: 16px; /* Tamaño de la fuente para el contenido principal */
+            word-wrap: break-word; /* Asegura que el texto largo se ajuste y no se salga de los límites */
+        }
+        .footer {
+            margin-top: 20px; /* Espacio superior para la sección de pie de página */
+            text-align: center; /* Centra el texto del pie de página */
+            color: #888; /* Color del texto del pie de página */
+            font-size: 12px; /* Tamaño de la fuente para el pie de página */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Recuperación de Contraseña</h1>
+        </div>
+        <div class="content">
+            <p>Estimado(a) <strong>{{ nombres }}</strong>, gracias por comunicarse con el Servicio de Soporte COOTEP</p>
+            <p>Le informamos que su nueva contraseña es: <strong>{{ new_password }}</strong></p>
+            <p>Por favor, después de haber iniciado sesión se le recomienda que cambie de contraseña.</p>
+        </div>
+        <div class="footer">
+            <p>© 2024 - COOTEP</p>
+            <p>Este es un correo generado automáticamente, por favor no respondas a este mensaje.</p>
+        </div>
+    </div>
+</body>
+</html>

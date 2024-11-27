@@ -1,10 +1,3 @@
-/* Estilos para los inputs de tipo texto, contraseña, email, checkbox y file dentro de la clase form-create */
-.form-create input[type="text"], input[type="password"], input[type="email"], input[type="checkbox"], input[type="file"] {
-  margin-bottom: 20px;  /* Espacio inferior entre el input y el siguiente elemento, como un botón */
-  font-size: 16px;      /* Tamaño de la letra dentro del input */
-  max-width: 330px;     /* Ancho máximo del input */
-}
-
 /* Estilos para los select dentro de la clase form-create */
 .form-create select {
   margin-bottom: 20px;  /* Espacio inferior entre el select y el siguiente elemento */
@@ -17,4 +10,31 @@
   margin-bottom: 20px;  /* Espacio inferior entre el textarea y el siguiente elemento */
   font-size: 14px;      /* Tamaño de la letra dentro del textarea */
   max-width: 430px;     /* Ancho máximo del textarea */
+  background-color: #f9f9f9; /* Fondo */
+}
+
+/* Estilos comunes para inputs en form-create */
+.form-create input {
+  margin-bottom: 20px;  /* Espacio inferior */
+  font-size: 16px;      /* Tamaño de la letra */
+  max-width: 330px;     /* Ancho máximo */
+  padding: 8px;         /* Espaciado interno */
+  border: 1px solid #ccc; /* Borde */
+  border-radius: 4px;   /* Bordes redondeados */
+  background-color: #f9f9f9; /* Fondo */
+}
+
+/* Estilos específicos para input[type="number"] */
+.form-create input[type="number"] {
+  appearance: none;         /* Eliminar estilos predeterminados */
+  -moz-appearance: none;    /* Firefox */
+  -webkit-appearance: none; /* Chrome, Safari */
+  text-align: left;         /* Alinear texto a la izquierda */
+}
+
+/* Eliminar flechas en navegadores basados en WebKit (Chrome, Safari) */
+.form-create input[type="number"]::-webkit-inner-spin-button,
+.form-create input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none; 
+  margin: 0;
 }

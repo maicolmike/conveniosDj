@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 from decouple import config
+import cx_Oracle   # para la coneccion a oracle
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -95,6 +96,14 @@ DATABASES = {
         'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '3306',
+    },
+    'oracle': {
+        'ENGINE': 'django.db.backends.oracle',
+        'NAME': 'LINIX',  # SID o nombre del servicio de Oracle
+        'USER': 'LINIX',  # Usuario de Oracle
+        'PASSWORD': 'LNXPROD2023',  # Contraseña de Oracle
+        'HOST': '10.180.131.2',  # Dirección del servidor Oracle
+        'PORT': '1521',  # Puerto predeterminado de Oracle
     }
 }
 

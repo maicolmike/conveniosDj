@@ -30,38 +30,48 @@
   
   </form>
 
-  {% if resultado %}
-  <br>
-  <br>
-  <h3>Resultados</h3>
-  <table class="table">
-      <thead>
-          <tr>
-              <th>Número de Identificación</th>
-              <th>Nombre</th>
-          </tr>
-      </thead>
-      <tbody>
-          {% for row in resultado %}
-              <tr>
-                  <td>{{ row.0 }}</td>
-                  <td>{{ row.1 }}</td>
-              </tr>
-          {% endfor %}
-      </tbody>
-  </table>
+{% if resultado %}
+    <br>
+    <br>
+    <h3>Resultados</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Número de Identificación</th>
+                <th>Nombre</th>
+                <th>Vencido Aportes</th>
+                <th>Vencido Contractual</th>
+                <th>Vencido Cuota Manejo</th>
+                <th>Vencido Crédito</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in resultado %}
+                <tr>
+                    <td>{{ row.0 }}</td>
+                    <td>{{ row.1 }}</td>
+                    <td>{{ row.2 }}</td>
+                    <td>{{ row.3 }}</td>
+                    <td>{{ row.4 }}</td>
+                    <td>{{ row.5 }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
-  <br>
-  {% if resultado.0.2 <= 0 and resultado.0.3 <= 0 and resultado.0.4 <= 0 and resultado.0.5 <= 0 %}
+    <br>
+    {% if resultado.0.2 <= 0 and resultado.0.3 <= 0 and resultado.0.4 <= 0 and resultado.0.5 <= 0 %}
     <p>La persona es <strong>apta para convenios</strong>, ya que no tiene deudas pendientes.</p>
-  {% else %}
-    <p>La persona <strong>no es apta para convenios</strong> debido a deudas pendientes o valores positivos.</p>
-  {% endif %}
-
-  {% elif resultado is not None %}
-  <br>
+    
+    {% else %}
+    <p>La persona <strong>no es apta para convenios</strong> debido a deudas pendientes.</p>
+    {% endif %}
+    
+    {% elif resultado is not None %}
+    <br>
     <p>No se encontraron resultados para la identificación proporcionada.</p>
-  {% endif %}
+    {% endif %}
+
   
 </div>
 

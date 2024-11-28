@@ -3,37 +3,44 @@
 
 {% block content %}
 
+<!-- Enlace al archivo de estilos CSS específico para el formulario -->
 <link rel="stylesheet" href="{% static 'css/register.css' %}">
 
 <div class="col">
+  <!-- Incluir mensajes de error o éxito generados por el sistema -->
   {% include 'messages.html' %}
   <h2>Consultar asociado</h2>
-  <!-- Formulario -->
+
+  <!-- Formulario para enviar la consulta -->
   <form class="form-create" method="post">
-      {% csrf_token %}
+      {% csrf_token %} <!-- Token para proteger contra ataques CSRF -->
     
-    <!-- Mostar el formulario de una manera mas rapida-->
+    <!-- Renderizar automáticamente cada campo del formulario -->
     {% for field in form %}
     <div class="form-group">
 
-      {{ field.label_tag }}
-      {{ field }}
+      {{ field.label_tag }} <!-- Etiqueta del campo -->
+      {{ field }} <!-- Campo de entrada del formulario -->
     
       {% if field.errors %}
-      {{ field.errors }}
+      {{ field.errors }} <!-- Mostrar errores de validación específicos del campo -->
       {% endif %}
 
     </div>
-  {% endfor %}
+    {% endfor %}
 
-  <button type="submit" class="btn btn-success">Consultar</button>
+    <!-- Botón para enviar el formulario -->
+    <button type="submit" class="btn btn-success">Consultar</button>
   
   </form>
 
-{% if resultado %}
+  <!-- Si hay resultados, mostrar la tabla -->
+  {% if resultado %}
     <br>
     <br>
     <h3>Resultados</h3>
+
+    <!-- Tabla para mostrar los resultados de la consulta -->
     <table class="table">
         <thead>
             <tr>
@@ -48,32 +55,45 @@
         <tbody>
             {% for row in resultado %}
                 <tr>
-                    <td>{{ row.0 }}</td>
-                    <td>{{ row.1 }}</td>
-                    <td>{{ row.2 }}</td>
-                    <td>{{ row.3 }}</td>
-                    <td>{{ row.4 }}</td>
-                    <td>{{ row.5 }}</td>
+                    <!-- Mostrar los valores de cada fila -->
+                    <td>{{ row.0 }}</td> <!-- Número de identificación -->
+                    <td>{{ row.1 }}</td> <!-- Nombre -->
+                    <td>{{ row.2 }}</td> <!-- Deuda por aportes vencidos -->
+                    <td>{{ row.3 }}</td> <!-- Deuda contractual vencida -->
+                    <td>{{ row.4 }}</td> <!-- Deuda por cuota de manejo vencida -->
+                    <td>{{ row.5 }}</td> <!-- Deuda por crédito vencido -->
                 </tr>
             {% endfor %}
         </tbody>
     </table>
 
     <br>
-    {% if resultado.0.2 <= 0 and resultado.0.3 <= 0 and resultado.0.4 <= 0 and resultado.0.5 <= 0 %}
-    <p>La persona es <strong>apta para convenios</strong>, ya que no tiene deudas pendientes.</p>
-    
-    {% else %}
-    <p>La persona <strong>no es apta para convenios</strong> debido a deudas pendientes.</p>
-    {% endif %}
-    
-    {% elif resultado is not None %}
+    <!-- Usar variables temporales para manejar las deudas  valido que si sale None no me genere error-->
+    {% with resultado.0.2|default:0 as deuda_aportes %} <!-- Vencido Aportes -->
+    {% with resultado.0.3|default:0 as deuda_contractual %} <!-- Vencido Contractual -->
+    {% with resultado.0.4|default:0 as deuda_cuota %} <!-- Vencido Cuota Manejo -->
+    {% with resultado.0.5|default:0 as deuda_credito %} <!-- Vencido Crédito -->
+
+        <!-- Evaluar si todas las deudas están en 0 o son negativas -->
+        {% if deuda_aportes <= 0 and deuda_contractual <= 0 and deuda_cuota <= 0 and deuda_credito <= 0 %}
+            <!-- Mensaje si la persona no tiene deudas pendientes -->
+            <p>La persona es <strong>apta para convenios</strong>, ya que no tiene deudas pendientes.</p>
+        {% else %}
+            <!-- Mensaje si la persona tiene deudas pendientes -->
+            <p>La persona <strong>no es apta para convenios</strong> debido a deudas pendientes.</p>
+        {% endif %}
+
+    {% endwith %}
+    {% endwith %}
+    {% endwith %}
+    {% endwith %}
+
+  <!-- Si no hay resultados encontrados para la identificación -->
+  {% elif resultado is not None %}
     <br>
     <p>No se encontraron resultados para la identificación proporcionada.</p>
-    {% endif %}
+  {% endif %}
 
-  
 </div>
-
 
 {% endblock %}

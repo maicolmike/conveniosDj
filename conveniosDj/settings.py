@@ -96,14 +96,14 @@ DATABASES = {
         'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': '3306',
-    },
+    }, # coneccion oracle
     'oracle': {
         'ENGINE': 'django.db.backends.oracle',
-        'NAME': 'LINIX',  # SID o nombre del servicio de Oracle
-        'USER': 'LINIX',  # Usuario de Oracle
-        'PASSWORD': 'LNXPROD2023',  # Contraseña de Oracle
-        'HOST': '10.180.131.2',  # Dirección del servidor Oracle
-        'PORT': '1521',  # Puerto predeterminado de Oracle
+        'NAME': 'LINIX',  # Usa el valor directamente
+        'USER': 'LINIX',
+        'PASSWORD': 'LNXPROD2023',
+        'HOST': '10.180.131.2',
+        'PORT': 1521,
     }
 }
 
@@ -160,5 +160,3 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-#EMAIL_HOST_USER = 'soportesistemas@cootep.com.co'
-#EMAIL_HOST_PASSWORD = 'jsyy bebr hxzp ubzc'

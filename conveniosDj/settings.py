@@ -99,11 +99,11 @@ DATABASES = {
     }, # coneccion oracle
     'oracle': {
         'ENGINE': 'django.db.backends.oracle',
-        'NAME': 'LINIX',  # Usa el valor directamente
-        'USER': 'LINIX',
-        'PASSWORD': 'LNXPROD2023',
-        'HOST': '10.180.131.2',
-        'PORT': 1521,
+        'NAME': 'xxxx',  # Usa el valor directamente
+        'USER': 'xxxx',
+        'PASSWORD': 'xxxx',
+        'HOST': '1xx',
+        'PORT': xxx,
     }
 }
 

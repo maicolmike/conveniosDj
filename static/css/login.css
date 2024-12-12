@@ -21,7 +21,7 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Capa negra transparente */
+  background-color: rgba(250, 247, 247, 0.5); /* Capa negra transparente */
   z-index: 1; /* Coloca la capa detrás del contenido */
 }
 
@@ -58,7 +58,7 @@ h2 {
   border: 1px solid #ccc; /* Borde del campo */
   border-radius: 5px; /* Bordes redondeados */
   padding: 10px; /* Espaciado interno */
-  background-color: #f9f9f9; /* Fondo claro */
+  background-color: #f0f0f0; /* Fondo claro */
 }
 
 /* Ícono dentro del campo */
@@ -110,4 +110,10 @@ h2 {
   color: red; /* Color rojo para errores */
   font-size: 12px; /* Tamaño del texto */
   text-align: left; /* Alineación a la izquierda */
+}
+
+/* para que el mensaje se ponga adelante de la transparencia */
+.mensajes {
+  position: relative; /* Asegura que esté sobre la capa transparente */
+  z-index: 2; /* Coloca el contenedor encima de la capa */
 }

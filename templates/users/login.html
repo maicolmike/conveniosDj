@@ -28,16 +28,24 @@
             {{ form.password }}
         </div>
 
-    <button type="submit" class="btn btn-lg btn-success login-button" >Iniciar sesi&oacute;n</button>  <!-- style="background-color:rgb(4,105,4);" -->
+    <button type="submit" class="btn btn-lg btn-success login-button" >LOGIN</button>  <!-- style="background-color:rgb(4,105,4);" -->
         <!-- Enlace para recuperar contraseña -->
         <a href="{% url 'recuperar_clave' %}" class="forgot-password">Recordar contraseña</a>
         
-        {% include 'messages.html' %}
+        
   </form>
+
    <!-- Footer -->
-   <footer>
-    <p class="CopyRight text-muted mt-3" style="font-size: 12px;"> &copy; <span id="anio_actual"></span> COOTEP<br> Diseñado por Ing de sistemas Maicol Yela </p>
-</footer>
+    <footer>
+        <p class="CopyRight text-muted mt-3" style="font-size: 12px;"> &copy; <span id="anio_actual"></span> COOTEP<br> Diseñado por Ing de sistemas Maicol Yela Valencia</p>
+    </footer>
+    
   <script src="{% static 'js/anio.js' %}"></script>
+
 </div>
+
+<div class="mensajes">
+    {% include 'messages.html' %}
+</div>
+
 {% endblock %}

@@ -1,57 +1,113 @@
-/* Estilos para HTML y body para asegurar que ocupen el 100% de la altura de la ventana */
-html,
+/* ----------- Estilo General ----------- */
 body {
+  display: flex; /* Flexbox para centrar contenido */
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  height: 100vh; /* Ocupa toda la altura de la pantalla */
+  margin: 0; /* Elimina márgenes */
+  font-family: 'Poppins', sans-serif; /* Fuente */
+  background-image: url('../img/fondo.jpg'); /* Subir un nivel y entrar a img /* Imagen de fondo */
+  background-size: cover; /* Ajusta el tamaño */
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+/* Capa oscura sobre la imagen de fondo */
+body::before {
+  content: '';
+  position: fixed; /* posision del login */
+  top: 0;
+  left: 0;
+  width: 100%;
   height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Capa negra transparente */
+  z-index: 1; /* Coloca la capa detrás del contenido */
 }
 
-/* Estilos para el body */
-body {
-  display: -ms-flexbox; /* Propiedad para soporte en Internet Explorer */
-  display: flex; /* Usar Flexbox para centrar el contenido */
-  -ms-flex-align: center; /* Propiedad para soporte en Internet Explorer */
-  align-items: center; /* Alinear los elementos en el centro verticalmente */
-  padding-top: 40px; /* Espaciado superior */
-  padding-bottom: 40px; /* Espaciado inferior */
-  background-color: #fdf9f9; /* Color de fondo */
+
+/* ----------- Contenedor de Login ----------- */
+.login-container {
+  position: relative; /* Asegura que esté sobre la capa transparente */
+  z-index: 2; /* Coloca el contenedor encima de la capa */
+  background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco con transparencia */
+  width: 400px; /* Ancho fijo del contenedor */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  padding: 20px 30px; /* Espaciado interno */
+  text-align: center; /* Centra el texto */
 }
 
-/* Estilos para las etiquetas de los formularios */
-label {
-  font-size: 24px; /* Tamaño de la fuente */
-  /* font-weight: bold; /* Comentado: Negrita */
+/* Logo de la aplicación */
+.avatar img {
+  margin-bottom: 10px; /* Espaciado inferior */
+  width: 350px; /* Tamaño del logo */
 }
 
-/* Estilos para el formulario con la clase form-signin */
-.form-signin {
-  width: 100%; /* Ancho completo */
-  max-width: 530px; /* Ancho máximo */
-  padding: 45px; /* Espaciado interior */
-  margin: auto; /* Centrar horizontalmente */
+/* Título */
+h2 {
+  color: #333; /* Color del texto */
+  margin-bottom: 20px; /* Espaciado inferior */
 }
 
-/* Estilos para la clase checkbox dentro del formulario form-signin */
-.form-signin .checkbox {
-  font-weight: 400; /* Peso de la fuente normal */
+/* ----------- Campos de Entrada ----------- */
+.input-group {
+  display: flex; /* Organiza ícono y campo de texto en línea */
+  align-items: center; /* Alinea verticalmente */
+  margin-bottom: 15px; /* Espaciado entre campos */
+  border: 1px solid #ccc; /* Borde del campo */
+  border-radius: 5px; /* Bordes redondeados */
+  padding: 10px; /* Espaciado interno */
+  background-color: #f9f9f9; /* Fondo claro */
 }
 
-/* Estilos para los controles de formulario dentro de form-signin */
-.form-signin .form-control {
-  position: relative; /* Posición relativa para personalización */
-  box-sizing: border-box; /* Incluir padding y border en el ancho y alto */
-  height: auto; /* Altura automática */
-  width: 330px; /* Ancho fijo */
-  padding: 10px; /* Espaciado interior */
-  font-size: 16px; /* Tamaño de la fuente */
+/* Ícono dentro del campo */
+.input-group i {
+  margin-right: 10px; /* Espaciado a la derecha del ícono */
+  color: #080808; /* Color del ícono */
 }
 
-/* Estilos para los controles de formulario cuando están enfocados */
-.form-signin .form-control:focus {
-  z-index: 2; /* Asegurar que el control enfocado esté por encima de otros elementos */
+/* Estilo del campo de entrada */
+.input-group input {
+  border: none; /* Elimina el borde */
+  outline: none; /* Elimina el borde de enfoque */
+  width: 90%; /* Ocupa todo el espacio restante */
+  font-size: 14px; /* Tamaño del texto */
 }
 
-/* Estilos específicos para los campos de tipo password */
-.form-signin input[type="password"] {
-  margin-bottom: 20px; /* Margen inferior */
-  border-top-left-radius: 0; /* Quitar el radio superior izquierdo */
-  border-top-right-radius: 0; /* Quitar el radio superior derecho */
+/* ----------- Botón de Login ----------- */
+.login-button {
+  background-color: #22bca7; /* Color principal */
+  color: white; /* Texto blanco */
+  font-size: 16px; /* Tamaño del texto */
+  border: none; /* Elimina el borde */
+  border-radius: 5px; /* Bordes redondeados */
+  padding: 10px; /* Espaciado interno */
+  width: 100%; /* Ocupa todo el ancho */
+  cursor: pointer; /* Cambia el cursor al pasar */
+  transition: background-color 0.3s; /* Efecto de transición */
+}
+
+.login-button:hover {
+  background-color: #1da890; /* Color al pasar el mouse */
+}
+
+/* Enlace para recuperar contraseña */
+.forgot-password {
+  display: block;
+  margin: 12px 0; /* Espaciado */
+  font-size: 14px; /* Tamaño del texto */
+  color: #22bca7; /* Color del texto */
+  text-decoration: none; /* Elimina subrayado */
+}
+
+.forgot-password:hover {
+  text-decoration: underline; /* Subraya al pasar el mouse */
+}
+
+/* Mensaje de error */
+.errorlist {
+  color: red; /* Color rojo para errores */
+  font-size: 12px; /* Tamaño del texto */
+  text-align: left; /* Alineación a la izquierda */
 }

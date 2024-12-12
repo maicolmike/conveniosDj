@@ -1,0 +1,57 @@
+/* Estilos para HTML y body para asegurar que ocupen el 100% de la altura de la ventana */
+html,
+body {
+  height: 100%;
+}
+
+/* Estilos para el body */
+body {
+  display: -ms-flexbox; /* Propiedad para soporte en Internet Explorer */
+  display: flex; /* Usar Flexbox para centrar el contenido */
+  -ms-flex-align: center; /* Propiedad para soporte en Internet Explorer */
+  align-items: center; /* Alinear los elementos en el centro verticalmente */
+  padding-top: 40px; /* Espaciado superior */
+  padding-bottom: 40px; /* Espaciado inferior */
+  background-color: #fdf9f9; /* Color de fondo */
+}
+
+/* Estilos para las etiquetas de los formularios */
+label {
+  font-size: 24px; /* Tamaño de la fuente */
+  /* font-weight: bold; /* Comentado: Negrita */
+}
+
+/* Estilos para el formulario con la clase form-signin */
+.form-signin {
+  width: 100%; /* Ancho completo */
+  max-width: 530px; /* Ancho máximo */
+  padding: 45px; /* Espaciado interior */
+  margin: auto; /* Centrar horizontalmente */
+}
+
+/* Estilos para la clase checkbox dentro del formulario form-signin */
+.form-signin .checkbox {
+  font-weight: 400; /* Peso de la fuente normal */
+}
+
+/* Estilos para los controles de formulario dentro de form-signin */
+.form-signin .form-control {
+  position: relative; /* Posición relativa para personalización */
+  box-sizing: border-box; /* Incluir padding y border en el ancho y alto */
+  height: auto; /* Altura automática */
+  width: 330px; /* Ancho fijo */
+  padding: 10px; /* Espaciado interior */
+  font-size: 16px; /* Tamaño de la fuente */
+}
+
+/* Estilos para los controles de formulario cuando están enfocados */
+.form-signin .form-control:focus {
+  z-index: 2; /* Asegurar que el control enfocado esté por encima de otros elementos */
+}
+
+/* Estilos específicos para los campos de tipo password */
+.form-signin input[type="password"] {
+  margin-bottom: 20px; /* Margen inferior */
+  border-top-left-radius: 0; /* Quitar el radio superior izquierdo */
+  border-top-right-radius: 0; /* Quitar el radio superior derecho */
+}

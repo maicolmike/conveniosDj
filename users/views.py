@@ -252,6 +252,8 @@ def recuperar_clave(request):
                 # Si el usuario no existe, muestra un mensaje de error.
                 #messages.error(request, 'Error: El usuario no existe.')
                 messages.success(request, f'Se ha enviado un correo para recuperar su clave.')
+                 # Redirige al usuario a la página de inicio de sesión.
+                return redirect('login')
         else:
             # Si el formulario no es válido, muestra un mensaje de error.
             messages.error(request, 'Formulario inválido.')

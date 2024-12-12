@@ -4,40 +4,40 @@
 {% block content %}
 
 <link rel="stylesheet" href="{% static 'css/login.css' %}">
+<!-- Importa el CSS de FontAwesome y Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
-<div class="container mt-3">
+<div class="login-container container mt-3">
   <form class="form-signin" action="" method="post">
     {% csrf_token %}  <!--para que no genere error-->
-    <img class="mb-4" src="{% static 'img/logoCootep.png' %}" alt="" width="300">
-    <h1 class="h3 mb-3 font-weight-normal">Login mesa de ayuda</h1>
-    {% for field in form %}
-        <div class="mb-3 mt-3">
-    
-          {{ field.label_tag }}
-          {{ field }}
-        
-          {% if field.errors %}
-          {{ field.errors }}
-          {% endif %}
-    
+    <div class="avatar">
+        <img src="{% static 'img/logoCootep.png' %}" alt="">
+    </div>
+    <h1 class="h3 mb-3 font-weight-normal">App convenios COOTEP</h1>
+   <!-- Campo Usuario -->
+        <div class="input-group">
+            <i class="fas fa-user"></i> <!-- Ícono de usuario -->
+            <!-- <input type="text" name="username" placeholder="Usuario" required> -->
+            {{ form.username }}
         </div>
-    {% endfor %}
-    <button type="submit" class="btn btn-lg btn-success" >Iniciar sesi&oacute;n</button>  <!-- style="background-color:rgb(4,105,4);" -->
-        <br><br>
-        <a class="" href="{% url 'recuperar_clave' %}">Recordar contraseña</a>
-        <br>
-        {% include 'messages.html' %}
+        
+        <!-- Campo Password -->
+        <div class="input-group">
+            <i class="fas fa-lock"></i> <!-- Ícono de candado -->
+            <!-- <input type="password" name="password" placeholder="Password" required> -->
+            {{ form.password }}
+        </div>
 
-        <footer>
-            <br>
-            <br>
-            <div class="container">
-                <div class="row">
-                    <p class="CopyRight text-muted">All Copyright <span id="anio_actual"></span> &copy; COOTEP <br> Diseñado por Ing de sistemas Maicol Yela</p>
-                </div>
-            </div>
-        </footer>  
+    <button type="submit" class="btn btn-lg btn-success login-button" >Iniciar sesi&oacute;n</button>  <!-- style="background-color:rgb(4,105,4);" -->
+        <!-- Enlace para recuperar contraseña -->
+        <a href="{% url 'recuperar_clave' %}" class="forgot-password">Recordar contraseña</a>
+        
+        {% include 'messages.html' %}
   </form>
+   <!-- Footer -->
+   <footer>
+    <p class="CopyRight text-muted mt-3" style="font-size: 12px;"> &copy; <span id="anio_actual"></span> COOTEP<br> Diseñado por Ing de sistemas Maicol Yela </p>
+</footer>
   <script src="{% static 'js/anio.js' %}"></script>
 </div>
 {% endblock %}

@@ -19,14 +19,14 @@ document.addEventListener('DOMContentLoaded', function () {
               const data = await response.json();
               const { estado, mensaje, mensaje2 } = data;
 
-              let icon = estado === 'apta' ? 'success' 
-                         : estado === 'no_apta' ? 'error' 
+              let icon = estado === 'HABIL' ? 'success' 
+                         : estado === 'INHABIL' ? 'error' 
                          : 'warning'; // Icono para no encontrada
 
               Swal.fire({
-                  title: estado === 'apta' ? '¡Apto!' 
-                         : estado === 'no_apta' ? 'No Apto' 
-                         : 'No Encontrado',
+                  title: estado === 'HABIL' ? '¡Apto!' 
+                         : estado === 'INHABIL' ? 'No Apto' 
+                         : '',
                   html: `<p>${mensaje}</p><p>${mensaje2}</p>`, // Mostrar ambos mensajes
                   icon: icon,
                   confirmButtonText: 'Ok',

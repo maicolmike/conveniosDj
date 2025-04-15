@@ -57,11 +57,11 @@ def consulta(request):
             deuda_credito = resultado[5]
 
             if deuda_aportes <= 0 and deuda_contractual <= 0 and deuda_cuota <= 0 and deuda_credito <= 0:
-                estado_aptitud = "apta"
+                estado_aptitud = "HABIL"
                 mensaje = f"{identificacion} {nombre}"
                 mensaje2 = "La persona es apta para convenios, ya que no tiene deudas pendientes."
             else:
-                estado_aptitud = "no_apta"
+                estado_aptitud = "INHABIL"
                 mensaje = f"{identificacion} {nombre}"
                 mensaje2 = "La persona NO es apta para convenios, ya que tiene deudas pendientes."
         else:

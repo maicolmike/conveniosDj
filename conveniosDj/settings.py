@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-j*k920r6yy9b-@2=mzjo4qw=3lz2n+@)k_2+gz=ovz*htk(1dz
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -92,8 +92,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'conveniosDj',
-        'USER': 'root',
-        'PASSWORD': '',
+        'USER': 'sistemas11',
+        'PASSWORD': 'Cootep2025$',
         'HOST': 'localhost',
         'PORT': '3306',
     }, # coneccion oracle
@@ -160,8 +160,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = 'soportesistemas@cootep.com.co'
+EMAIL_HOST_PASSWORD = 'jsyy bebr hxzp ubzc'
 
 # Configurar la duración de la sesión en segundos (10 minutos) se multiplica 60 segundos por los minutos
 SESSION_COOKIE_AGE = 600

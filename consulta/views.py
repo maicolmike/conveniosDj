@@ -41,8 +41,10 @@ def consulta(request):
                           AND ca090mgsolcred.i_estsol = 'C'
                           AND ca090mgsolcred.i_anulad = 'N'), 0) ven_credito
             FROM ap014mcliente ap014
-            WHERE ap014.aanumnit = :identificacion
-              AND PK_AP_AFILIACION.FU_CLIENTE_ACTIVO(ap014.k_idterc, SYSDATE) = 'ACTIVO'
+            WHERE ap014.AANUMNIT IN (:identificacion) 
+            AND (PK_AP_AFILIACION.FU_CLIENTE_ACTIVO(AP014.K_IDTERC,SYSDATE)='EN_SOLICITUD_RETIRO'
+            OR PK_AP_AFILIACION.FU_CLIENTE_ACTIVO(AP014.K_IDTERC,SYSDATE)='CON_NOVEDAD'
+            OR PK_AP_AFILIACION.FU_CLIENTE_ACTIVO(AP014.K_IDTERC,SYSDATE)='ACTIVO')
             """
             cursor.execute(query, {'identificacion': identificacion})
             resultado = cursor.fetchone()
@@ -59,11 +61,11 @@ def consulta(request):
             if deuda_aportes <= 0 and deuda_contractual <= 0 and deuda_cuota <= 0 and deuda_credito <= 0:
                 estado_aptitud = "HABIL"
                 mensaje = f"{identificacion} {nombre}"
-                mensaje2 = "La persona es apta para convenios, ya que no tiene deudas pendientes."
+                mensaje2 = "La persona es apta para convenios."
             else:
                 estado_aptitud = "INHABIL"
                 mensaje = f"{identificacion} {nombre}"
-                mensaje2 = "La persona NO es apta para convenios, ya que tiene deudas pendientes."
+                mensaje2 = "La persona NO es apta para convenios, pendiente el pago de alguna de sus obligaciones."
         else:
             estado_aptitud = "no_encontrada"
             mensaje = f"No se encontraron resultados para la identificación {identificacion}."

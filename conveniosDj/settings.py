@@ -101,8 +101,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.oracle',
         'NAME': 'LINIX',  # Usa el valor directamente
         'USER': 'LINIX',
-        'PASSWORD': 'LNXPROD2023',
-        'HOST': '10.180.131.2',
+        'PASSWORD': 'LNXP',
+        'HOST': '10.180.',
         'PORT': 1521,
     }
 }

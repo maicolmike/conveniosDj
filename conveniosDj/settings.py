@@ -131,7 +131,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
 #LANGUAGE_CODE = 'en-us'
-LANGUAGE_CODE = 'es-co'  # Cambiado a Español - Colombia
+LANGUAGE_CODE = 'es-co'  # Cambiado a Espa�ol - Colombia
 
 #TIME_ZONE = 'UTC'
 TIME_ZONE = 'America/Bogota'  # Cambiado a la zona horaria de Colombia
@@ -163,17 +163,17 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
-# Configurar la duración de la sesión en segundos (10 minutos) se multiplica 60 segundos por los minutos
+# Configurar la duraci�n de la sesi�n en segundos (10 minutos) se multiplica 60 segundos por los minutos
 SESSION_COOKIE_AGE = 600
-SESSION_COOKIE_SECURE = False  # True si estï¿½s usando HTTPS
+SESSION_COOKIE_SECURE = False  # True si est�s usando HTTPS
 SESSION_COOKIE_HTTPONLY = 600
 
-# Configurar para que la sesión se actualice con cada solicitud
+# Configurar para que la sesi�n se actualice con cada solicitud
 SESSION_SAVE_EVERY_REQUEST = True
 
-# URL de inicio de sesión personalizada  / evitar el error de http://127.0.0.1:8000/accounts/login/?next=/requerimientos/listar_requerimientos/
+# URL de inicio de sesi�n personalizada  / evitar el error de http://127.0.0.1:8000/accounts/login/?next=/requerimientos/listar_requerimientos/
 LOGIN_URL = '/users/login'
 
 #no me esta funcionando esto
-# Si deseas redirigir a los usuarios después de iniciar sesión:
+# Si deseas redirigir a los usuarios despu�s de iniciar sesi�n:
 #LOGIN_REDIRECT_URL = '/requerimientos/listar_requerimientos/'

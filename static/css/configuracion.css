@@ -1,0 +1,8 @@
+.configuracion {
+        max-width: 430px;
+        /*margin: auto; */
+        }
+
+    .tabla-detalle th {
+        width: 120px;     /* Opcional: ajusta el ancho de las columnas de encabezado */
+    }

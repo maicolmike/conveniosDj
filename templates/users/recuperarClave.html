@@ -3,39 +3,40 @@
 
 {% block content %}
 
-<link rel="stylesheet" href="{% static 'css/recordarClave.css' %}">
+<link rel="stylesheet" href="{% static 'css/recuperar_clave.css' %}">
+<!-- Importa el CSS de FontAwesome y Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
-<div class="container mt-3">
+
+<div class="login-container container mt-3">
   <form class="form-signin" action="" method="post">
     {% csrf_token %}  <!--para que no genere error-->
-    <img class="mb-4" src="{% static 'img/logoCootep.png' %}" alt="" width="300">
-    <h1 class="h3 mb-3 font-weight-normal">Recuperar clave</h1>
-    
-    <div class="mb-3 mt-3">
-    
-      {{ form.username.label_tag }}
-      {{ form.username }}
-      {% if field.errors %}
-      {{ field.errors }}
-      {% endif %}
-
+    <div class="avatar">
+        <img src="{% static 'img/logonew.png' %}" alt="">
     </div>
-
-    <button type="submit" class="btn btn-lg btn-success" >Enviar al correo</button>  <!-- style="background-color:rgb(4,105,4);" -->
-        <br><br>
+    <h1 class="h3 mb-3 font-weight-normal">Recuperar clave</h1>
+   <!-- Campo Usuario -->
+        <div class="input-group">
+            <i class="fas fa-user"></i> <!-- Ícono de usuario -->
+            <!-- <input type="text" name="username" placeholder="Usuario" required> -->
+            {{ form.username }}
+        </div>
         
-        {% include 'messages.html' %}
+    <button type="submit" class="btn btn-lg btn-success login-button" >Enviar al correo</button>  <!-- style="background-color:rgb(4,105,4);" -->
 
-        <footer>
-            <br>
-            <br>
-            <div class="container">
-                <div class="row">
-                    <p class="CopyRight text-muted">All Copyright <span id="anio_actual"></span> &copy; COOTEP <br> Diseñado por Ing de sistemas Maicol Yela</p>
-                </div>
-            </div>
-        </footer>  
   </form>
+
+   <!-- Footer -->
+    <footer>
+        <p class="CopyRight text-muted mt-3" style="font-size: 12px;">All Copyright <span id="anio_actual"></span> &copy; COOTEP <br> Diseñado por Ing de sistemas Maicol Yela Valencia</p>
+    </footer>
+    
   <script src="{% static 'js/anio.js' %}"></script>
+
 </div>
+
+<div class="mensajes">
+  {% include 'messages.html' %}
+</div>
+
 {% endblock %}

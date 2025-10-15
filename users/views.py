@@ -1,18 +1,77 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect,get_object_or_404
 from .models import User
 from .forms import LoginUser,RegistroUsuario,CambiarClaveForm,LoginUserRecuperarClave
-from django.contrib.auth import login,logout,authenticate
 from django.contrib import messages
-from django.shortcuts import render,redirect,get_object_or_404
+from django.contrib.auth import login,logout,authenticate,update_session_auth_hash
 from django.contrib.auth.decorators import login_required # vista basada en funciones que no permita acceder a paginas donde no se ha logeado
-from django.contrib.auth import update_session_auth_hash
 import string
 import random
-from django.core.mail import send_mail
+#trabajar en segundo plano,
+from threading import Thread # Importamos la clase Thread para ejecutar tareas en segundo plano (sin bloquear la app)
+# Importamos las clases necesarias para enviar correos con formato HTML
+from django.core.mail import send_mail,EmailMultiAlternatives
 from django.conf import settings
-from threading import Thread #trabajar en segundo plano
 from django.template.loader import render_to_string #Renderiza la plantilla HTML con los datos necesarios.
-from django.utils.html import strip_tags # Convierte el mensaje HTML a texto plano.
+# Convierte el mensaje HTML a texto plano.
+from django.utils.html import strip_tags 
+
+
+# -------------------------------------------------------------
+# 📨 Clase EmailThread: se encarga de enviar el correo en un hilo aparte
+# -------------------------------------------------------------
+class EmailThread(Thread):
+    # El método __init__ inicializa las variables necesarias para el envío
+    def __init__(self, subject, body, from_email, to_email):
+        self.subject = subject        # Asunto del correo
+        self.body = body              # Cuerpo del correo (en formato HTML)
+        self.from_email = from_email  # Dirección del remitente
+        self.to_email = to_email      # Dirección del destinatario
+        Thread.__init__(self)         # Inicializamos la clase padre Thread
+
+    # El método run() se ejecuta cuando se llama a .start() sobre el hilo
+    def run(self):
+        # Creamos el objeto de correo
+        msg = EmailMultiAlternatives(
+            subject=self.subject,      # Asunto del correo
+            body='',                   # Cuerpo de texto plano (dejamos vacío)
+            from_email=self.from_email,# Dirección del remitente
+            to=[self.to_email]         # Lista con los destinatarios
+        )
+
+        # Adjuntamos el cuerpo HTML como contenido alternativo
+        msg.attach_alternative(self.body, "text/html")
+
+        # Enviamos el correo
+        msg.send()
+
+
+# -------------------------------------------------------------
+# 💌 Función: enviar_correo_bienvenida
+# Envía un correo HTML al nuevo usuario con sus credenciales
+# -------------------------------------------------------------
+def enviar_correo_bienvenida(user, password, email):
+    """Envía un correo al nuevo usuario con sus credenciales."""
+
+    # Asunto del correo
+    subject = 'Cuenta creada - Convenios Cootep'
+
+    # Correo del remitente (usa el valor configurado en settings.DEFAULT_FROM_EMAIL)
+    # El formato "nombre <correo>" hace que el correo se vea más profesional
+    from_email = "servicio de notificación <{}>".format(settings.DEFAULT_FROM_EMAIL)
+
+    # Dirección de destino (correo del usuario creado)
+    to_email = email
+
+    # Renderizamos el HTML de la plantilla con los datos personalizados del usuario
+    html_content = render_to_string('emails/usuario_creado.html', {
+        'nombres': user.first_name,   # Nombre del usuario
+        'username': user.username,    # Nombre de usuario (login)
+        'password': password,         # Contraseña (la que se asignó al crear la cuenta)
+    })
+
+    # Creamos un hilo (EmailThread) para enviar el correo sin bloquear la respuesta del servidor
+    # Esto permite que Django siga ejecutándose mientras el correo se envía en segundo plano
+    EmailThread(subject, html_content, from_email, to_email).start()
 
 
 # Create your views here.
@@ -51,27 +110,47 @@ def logout_view(request):
     #messages.success(request,'Sesion cerrada')
     return redirect('login')
 
-#Registrar usuario
+# Importante: solo los usuarios autenticados pueden acceder a esta vista
 @login_required(login_url='login')    
 def register(request):
-    
+    # Se crea una instancia del formulario RegistroUsuario. Si el método es POST, se llenará con los datos enviados.Si no, se mostrará vacío en pantalla.
     form = RegistroUsuario(request.POST or None)
-    
+
+    # Verificamos si el formulario fue enviado y es válido
     if request.method == 'POST' and form.is_valid():
-        user = form.save() #save () se encuentra en el archivo forms.py
+
+        # Guardamos el usuario con el método save() definido en el formulario (este método crea un nuevo usuario en la base de datos)
+        user = form.save()
+
+        # Si el usuario se guardó correctamente
         if user:
-            if form.cleaned_data['is_superuser'] == '1': #El campo en el formulario html es 1
-                #otorgar permisos de administrador
+            # Verificamos el tipo de usuario seleccionado en el formulario '1' = administrador, '2' = cliente
+            if form.cleaned_data['is_superuser'] == '1':
+                # Si es administrador, le damos permisos de staff y superusuario
                 user.is_staff = True
                 user.is_superuser = True
+
+            # Guardamos nuevamente el usuario con los permisos asignados
             user.save()
-            messages.success(request, 'usuario creado')
+
+            # Obtenemos la contraseña y el correo electrónico del formulario
+            password = form.cleaned_data['password']
+            email = form.cleaned_data['email']
+            # Llamamos a la función que envía el correo de bienvenida con las credenciales
+            enviar_correo_bienvenida(user, password, email)
+
+            # Mostramos un mensaje en la interfaz indicando que todo salió bien
+            messages.success(request, 'Usuario creado y correo enviado exitosamente.')
+
+            # Redirigimos nuevamente a la misma página (por ejemplo, para registrar otro usuario)
             return redirect('register')
-    
+
+    # Si el método no es POST o el formulario tiene errores, renderizamos la página del formulario
     return render(request, 'users/register.html', {
-        'form': form,
-        'title': "Registro",
-        })
+        'form': form,       # Pasamos el formulario al template para mostrarlo
+        'title': "Registro" # Título que se puede usar en la plantilla HTML
+    })
+
 
 #Listar usuarios
 @login_required(login_url='login')

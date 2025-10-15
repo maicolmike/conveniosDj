@@ -5,7 +5,7 @@ $(function () {
     "lengthChange": false, // Deshabilita la opción para cambiar el número de registros por página
     "autoWidth": true, // Deshabilita el ajuste automático del ancho de las columnas
     "lengthMenu": [10, 25, 100], // Define las opciones del menú desplegable para el número de registros por página
-    "pageLength": 5, // Establece el número de registros por página a 5
+    "pageLength": 10, // Establece el número de registros por página a 5
 
     // Configura la traducción de los textos del DataTable al español
     "language": {
